@@ -3,13 +3,13 @@ const app = express();
 
 /*================
 ======ROUTES======*/
-const buzzword = require('./routes/buzzword');
+const buzzword = require('./routes/buzzword.js');
 
 var buzzwords = [];
 /*====================
 ======MIDDLEWARE======*/
 app.use(express.static(`public`));
-app.use(express.static(`/buzzword`, buzzword));
+app.use(`/buzzword`, buzzword);
 
 
 app.get('/buzzwords', function(req, res) {
