@@ -29,17 +29,17 @@ Router.route('/')
     var list = memory.getBuzzwords().buzzwords;
     if(list.indexOf(req.body.buzzWord) !== -1) {
       memory.getMemory().forEach(function(ele) {
-        if(ele.buzzWord === req.body.buzzWord && req.body.heard) {
+        if(ele.buzzWord === req.body.buzzWord) {
           ele.heard = req.body.heard;
-          memory.setScore(ele.points);
+          memory.setScore(req.body.heard, ele.points);
           console.log(memory.getScore());
         }
-        if(ele.buzzWord === req.body.buzzWord && !req.body.heard) {
-          ele.heard = req.body.heard;
+        // if(ele.buzzWord === req.body.buzzWord && !req.body.heard) {
+        //   ele.heard = req.body.heard;
 
-          memory.setScore('-' + ele.points);
-          console.log(memory.getScore());
-        }
+        //   memory.setScore(req.body.heard, ele.points);
+        //   console.log(memory.getScore());
+        // }
       });
       res.json({success: true, newScore: memory.getScore()});
     } else {

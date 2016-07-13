@@ -22,9 +22,9 @@ var memory = function() {
       memory.memory.push(word);
       buzzwordsArray.buzzwords.push(word.buzzWord);
     },
-    setScore: function(points) {
-      score = score + Number(points);
-      console.log(Number(points));
+    setScore: function(bool, points) {
+      if(bool) {score += Number(points);}
+      if(!bool) {score -= Number(points);}
     },
     getScore: function() {
       return score;
