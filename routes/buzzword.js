@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+var memory = require('../model/buzzwordMem');
 
 var Router = express.Router();
 
@@ -14,15 +15,26 @@ Router.route('/')
   .post( function(req, res) {
   // Creates a new buzzword object.
   // Returns true if successful else false
-  req.body, 'reqbody'
-  res.json(req.body);
-
+    if(Object.keys(req.body).length === 3 && !!(req.body.buzzWord) && !!(req.body.points)){
+      memory.setBuzzword(req.body);
+      res.json({success: true});
+    } else {
+      res.send('error');
+    }
   })
   .put(function(req, res) {
   // Updates a buzzword.
   // Returns true and the new score if successful
   // otherwise returns just false
-
+    var list = memory.getBuzzwords().buzzwords;
+    if(list.indexOf(req.body.buzzWord) !== -1) {
+      memory.getMemory().forEach(function(ele) {
+        if(ele.buzzWord === req.body.buzzWord) {
+          ele.heard = req.body.heard;
+          memory.setScore(ele.points);
+        }
+      });
+    }
 
   })
   .delete(function(req, res) {
@@ -30,5 +42,4 @@ Router.route('/')
   // Returns true if successful else false
 
   });
-
 module.exports = Router;
