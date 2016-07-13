@@ -15,7 +15,8 @@ app.get('/buzzwords', function(req, res) {
   res.json(memory.getBuzzwords());
 });
 app.post('/reset', function(req, res) {
-  res.send('yeah buddy');
+  memory.reset();
+  res.send({success: true});
 });
 
 var server = app.listen(3000, () => {

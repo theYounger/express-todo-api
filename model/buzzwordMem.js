@@ -23,10 +23,28 @@ var memory = function() {
       buzzwordsArray.buzzwords.push(word.buzzWord);
     },
     setScore: function(points) {
-      score += points;
+      score = score + Number(points);
+      console.log(Number(points));
     },
     getScore: function() {
       return score;
+    },
+    deleteBuzzword: function(word) {
+      memory.memory.forEach(function(ele, indie, arrie) {
+        if(ele.buzzWord === word.buzzWord){
+          delete arrie[indie];
+        }
+      });
+      buzzwordsArray.buzzwords.forEach(function(ele, indie, arrie) {
+        if(ele === word.buzzWord){
+          delete arrie[indie];
+        }
+      });
+    },
+    reset: function() {
+      memory.memory = [];
+      buzzwordsArray.buzzwords = [];
+      score = 0;
     }
   };
 };
