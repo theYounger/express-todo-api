@@ -1,52 +1,45 @@
 'use strict';
 
-var memory = function() {
-  var buzzwordsArray = {
-    buzzwords: []
+var model = function() {
+
+  var buzzwords = {
+    wordArray: []
   };
-  var memory = {
-    memory: []
-  };
+  var memory = [];
   var score = 0;
+
   return {
     getMemory: function() {
-      return memory.memory;
+      return memory;
     },
     getBuzzwords: function() {
-      return buzzwordsArray;
-      // return buzzArray.map(function(ele) {
-      //   return ele.buzzWord;
-      // });
+      return buzzwords;
     },
     setBuzzword: function(word) {
-      memory.memory.push(word);
-      buzzwordsArray.buzzwords.push(word.buzzWord);
+      memory.push(word);
+      buzzwords.wordArray.push(word.buzzWord);
     },
-    setScore: function(bool, points) {
-      if(bool) {score += Number(points);}
-      if(!bool) {score -= Number(points);}
+    setScore: function(buzzHeard, points) {
+      if(buzzHeard === 'true') {score += parseInt(points);}
+      if(buzzHeard === 'false') {score -= parseInt(points);}
     },
     getScore: function() {
       return score;
     },
     deleteBuzzword: function(word) {
-      memory.memory.forEach(function(ele, indie, arrie) {
-        if(ele.buzzWord === word.buzzWord){
-          delete arrie[indie];
-        }
+      memory.forEach(function(ele, indie, arrie) {
+        if(ele.buzzWord === word.buzzWord){delete arrie[indie];}
       });
-      buzzwordsArray.buzzwords.forEach(function(ele, indie, arrie) {
-        if(ele === word.buzzWord){
-          delete arrie[indie];
-        }
+      buzzwords.wordArray.forEach(function(ele, indie, arrie) {
+        if(ele === word.buzzWord){delete arrie[indie];}
       });
     },
     reset: function() {
-      memory.memory = [];
-      buzzwordsArray.buzzwords = [];
+      memory = [];
+      buzzwords.wordArray = [];
       score = 0;
     }
   };
 };
 
-module.exports = memory();
+module.exports = model();
