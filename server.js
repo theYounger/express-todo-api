@@ -15,7 +15,11 @@ app.use(`/buzzword`, buzzword);
 
 //Retrieves all buzzwords
 app.get('/buzzwords', function(req, res) {
-  res.json(model.getBuzzwords());
+  if(req.path !== '/buzzwords') {
+    res.status(404).send('Bad path');
+  } else {
+    res.json(model.getBuzzwords());
+  }
 });
 
 //Resets the server. All buzzwords are removed and scores reset to 0
@@ -24,9 +28,4 @@ app.post('/reset', function(req, res) {
   res.send({success: true});
 });
 
-var server = app.listen(3000, () => {
-  var host = 'localhost';
-  var port = server.address().port;
-
-  console.log(`Buzzword server listening at http://${host}:`,`${port}`);
-});
+module.exports = app;
